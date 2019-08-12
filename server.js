@@ -8,7 +8,7 @@ server.use(express.json());
 
 
 
-server.get('/', (req, res) => {
+server.get('/accounts', (req, res) => {
     const { limit, orderby } = req.query;
   
     // const query = db.select('*').from('accounts');
@@ -31,7 +31,7 @@ server.get('/', (req, res) => {
     });
 });
 
-server.get('accounts/:id', (req, res) => {
+server.get('/accounts/:id', (req, res) => {
     db('accounts')
       .where({ id: req.params.id })
       .first()
@@ -43,7 +43,7 @@ server.get('accounts/:id', (req, res) => {
       });
   });
 
-server.post('/', (req, res) => {
+server.post('/accounts', (req, res) => {
     const account = req.body;
     // validate the the account data is correct before saving to the db
     db('accounts')
@@ -56,7 +56,7 @@ server.post('/', (req, res) => {
       });
   });
 
-  server.put('/:id', (req, res) => {
+  server.put('/accounts/:id', (req, res) => {
     const changes = req.body;
   
     db('accounts')
@@ -74,7 +74,7 @@ server.post('/', (req, res) => {
       });
   });
 
-  server.delete('/:id', (req, res) => {
+  server.delete('/accounts/:id', (req, res) => {
     db('accounts')
       .where('id', '=', req.params.id)
       .del()
