@@ -6,11 +6,13 @@ const server = express();
 
 server.use(express.json());
 
+
+
 server.get('/', (req, res) => {
     const { limit, orderby } = req.query;
   
-    const query = db.select('*').from('accounts');
-    // const query = db('accounts')
+    // const query = db.select('*').from('accounts');
+    const query = db('accounts')
   
     if (limit) {
       query.limit(limit);
@@ -29,7 +31,7 @@ server.get('/', (req, res) => {
     });
 });
 
-server.get('/:id', (req, res) => {
+server.get('accounts/:id', (req, res) => {
     db('accounts')
       .where({ id: req.params.id })
       .first()
