@@ -8,9 +8,9 @@ where PostalCode=1010;
 ## Find the phone number for the supplier with the id 11
 
 SELECT Phone FROM [Suppliers]
-where SupplierId=1
+where SupplierId=11
 
-## List first 10 orders ever places, descending by the order date
+## List first 10 orders ever placed, descending by the order date
 
 select * from orders
 order by OrderDate desc
@@ -19,7 +19,7 @@ limit 10
 ## Find all customers that live in London, Madrid, or Brazil
 
 select * from Customers
-where City = 'London' or 'Madrid' or Country = 'Brazil'
+where City = 'London' or City = 'Madrid' or Country = 'Brazil'
 
 ## Add a customer record for "The Shire", the contact name is "Bilbo Baggins" the address is -"1 Hobbit-Hole" in "Bag End", postal code "111" and the country is "Middle Earth"
 
@@ -34,4 +34,11 @@ where ContactName = 'Bilbo Baggins'
 
 ## (Stretch) Find a query to discover how many different cities are stored in the Customers table. Repeats should not be double counted
 
+select distinct city
+from customers
+group by city
+
 ## (Stretch) Find all suppliers who have names longer than 20 characters. You can use `length(SupplierName)` to get the length of the name
+
+select * from suppliers
+where length(SupplierName) > 20

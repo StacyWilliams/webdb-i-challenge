@@ -7,17 +7,17 @@ const server = express();
 server.use(express.json());
 
 
-
 server.get('/accounts', (req, res) => {
+  // LIMIT Controls the maximum request body size. If this is a number, then the value specifies 
+  // the number of bytes; if it is a string, the value is passed to the bytes library for 
+  // parsing
+
     const { limit, orderby } = req.query;
-  
     // const query = db.select('*').from('accounts');
     const query = db('accounts')
-  
     if (limit) {
       query.limit(limit);
     }
-  
     if (orderby) {
       query.orderBy(orderby);
     }
@@ -29,7 +29,7 @@ server.get('/accounts', (req, res) => {
     .catch(error => {
       res.status(500).json({ message: 'error getting the account from db' });
     });
-});
+}); //endpoint works
 
 server.get('/accounts/:id', (req, res) => {
     db('accounts')
@@ -41,7 +41,7 @@ server.get('/accounts/:id', (req, res) => {
       .catch(error => {
         res.status(500).json({ message: 'error getting the account from db' });
       });
-  });
+}); //endpoint works
 
 server.post('/accounts', (req, res) => {
     const account = req.body;
@@ -54,9 +54,9 @@ server.post('/accounts', (req, res) => {
       .catch(error => {
         res.status(500).json({ message: 'error saving the account to the db' });
       });
-  });
+}); //endpoint works
 
-  server.put('/accounts/:id', (req, res) => {
+server.put('/accounts/:id', (req, res) => {
     const changes = req.body;
   
     db('accounts')
@@ -72,11 +72,11 @@ server.post('/accounts', (req, res) => {
       .catch(error => {
         res.status(500).json({ message: 'error updating the account' });
       });
-  });
+}); //endpoint works
 
-  server.delete('/accounts/:id', (req, res) => {
+server.delete('/accounts/:id', (req, res) => {
     db('accounts')
-      .where('id', '=', req.params.id)
+      .where({id:req.params.id})
       .del()
       .then(count => {
         if (count > 0) {
@@ -88,6 +88,6 @@ server.post('/accounts', (req, res) => {
       .catch(error => {
         res.status(500).json({ message: 'error removing the account' });
       });
-  });
+}); //endpoint works
 
 module.exports = server;
